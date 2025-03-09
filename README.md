@@ -15,5 +15,5 @@ ffmpeg (for audio and video processing)
 The author of xTremeDLP is not responsible for any misuse of this program that may violate local copyright/DMCA laws. Users use this application at their own risk...
 
 # Licence
-This project is licensed under the MIT License. See the LICENSE file for more information.
+This project is licensed under the GPL-3.0 License. See the LICENSE file for more information.
 

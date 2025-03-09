@@ -1,4 +1,4 @@
-![header](https://https://github.com/TheGlowEk/xTremeDLP/blob/main/.github/header.png)
+![header](https://github.com/TheGlowEk/xTremeDLP/blob/main/.github/header.png)
 
 xTremeDLP is a user-friendly graphical interface for downloading videos and audio from various online platforms using the powerful yt-dlp tool. This application is built with Python and utilizes the Tkinter library for its graphical user interface.
 

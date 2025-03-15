@@ -12,7 +12,6 @@ class YTDLPGUI:
         self.root.title("xTremeDLP")
         self.root.geometry("800x600")
         self.root.resizable(True, True)
-
         self.root.overrideredirect(True)
         self.root.iconbitmap("./icon.ico")
 
@@ -107,11 +106,9 @@ class YTDLPGUI:
 
     def minimize_window(self):
         self.root.withdraw()
-        self.root.overrideredirect(False)
         self.root.iconify()
 
     def deiconify_window(self, event=None):
-        self.root.overrideredirect(True)
         self.root.deiconify()
 
     def start_move(self, event):
@@ -137,7 +134,7 @@ class YTDLPGUI:
         ttk.Label(url_frame, text="URL:").pack(side=tk.LEFT, padx=(0, 5))
         self.url_entry = ttk.Entry(url_frame)
         self.url_entry.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=(0, 5))
-        ttk.Button(url_frame, text="Get Info", command=self.fetch_formats).pack(side=tk.LEFT)
+        ttk.Button(url_frame, text="Search", command=self.fetch_formats).pack(side=tk.LEFT)
 
         folder_frame = ttk.Frame(main_frame)
         folder_frame.pack(fill=tk.X, pady=(0, 10))
@@ -339,7 +336,7 @@ class YTDLPGUI:
 
         try:
             cmd_best_audio = [self.yt_dlp_path, "-f", "bestaudio", "-J", "--no-check-certificates", url]
-            result_best_audio = subprocess.run(cmd_best_audio, capture_output=True, text=True)
+            result_best_audio = subprocess.run(cmd_best_audio, capture_output=True, text=True, creationflags=subprocess.CREATE_NO_WINDOW)
             best_audio_data = json.loads(result_best_audio.stdout)
             best_audio_codec = best_audio_data.get("acodec", "")
 
@@ -375,7 +372,7 @@ class YTDLPGUI:
                 best_audio_name = acodec_mapping.get(base_acodec, base_acodec.upper())
 
             cmd = [self.yt_dlp_path, "-J", "--no-check-certificates", url]
-            result = subprocess.run(cmd, capture_output=True, text=True)
+            result = subprocess.run(cmd, capture_output=True, text=True, creationflags=subprocess.CREATE_NO_WINDOW)
 
             if result.returncode != 0:
                 self.progress_bar.stop()
@@ -512,7 +509,7 @@ class YTDLPGUI:
 
         try:
             cmd_info = [self.yt_dlp_path, "-J", "--no-check-certificates", url]
-            result = subprocess.run(cmd_info, capture_output=True, text=True)
+            result = subprocess.run(cmd_info, capture_output=True, text=True, creationflags=subprocess.CREATE_NO_WINDOW)
 
             if result.returncode != 0:
                 messagebox.showerror("Error", f"Error getting information: {result.stderr}")
@@ -552,7 +549,7 @@ class YTDLPGUI:
                     cmd.insert(3, "--merge-output-format")
                     cmd.insert(4, "mp4")
 
-                process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, bufsize=1)
+                process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, bufsize=1, creationflags=subprocess.CREATE_NO_WINDOW)
 
                 for line in iter(process.stdout.readline, ""):
                     self.status_var.set(line.strip())
